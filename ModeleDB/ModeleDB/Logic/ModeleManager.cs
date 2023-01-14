@@ -20,27 +20,54 @@ namespace ModeleDB.Logic
 
         public ModeleManager RemoveModel(int id)
         {
+            using (var context = new ModelContext())
+            {
+                ModeleModel filmToDelete = context.Models.FirstOrDefault(x => x.ID == id);
+                context.Models.Remove(filmToDelete);
+                context.SaveChanges();
+            }
             return this;
         }
 
-        public ModeleManager UpdateFilm(ModeleModel modeleModel)
+        public void UpdateModel(ModeleModel model)
         {
+            using (var context = new ModelContext())
+            {
+                context.Models.Update(model);
+                context.SaveChanges();
+            }
+        }
+
+        public ModeleManager ChangeName(int id, string newDetails)
+        {
+            using (var context = new ModelContext())
+            {
+                var model = this.GetModel(id);
+                if (string.IsNullOrEmpty(newDetails))
+                {
+                    newDetails = "Brak informacji";
+                }
+                model.Name = newDetails;
+                context.Models.Update(model);
+                context.SaveChanges();
+            }
             return this;
         }
 
-        public ModeleManager ChangeDetails(int id, string newDetails)
+        public ModeleModel GetModel(int id)
         {
-            return this;
-        }
-
-        public ModeleManager GetModel(int id)
-        {
-            return null;
+            using (var context = new ModelContext())
+            {
+                return context.Models.Single(x => x.ID == id);
+            }
         }
 
         public List<ModeleModel> GetModels()
         {
-            return null;
+            using (var context = new ModelContext())
+            {
+                return context.Models.ToList();
+            }            
         }
     }
 }
