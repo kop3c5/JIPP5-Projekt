@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Main Page</h1>
 
 <p>
-    <a asp-action="Add">Dodaj nowy model</a>
+    <a class="btn btn-outline-success btn-lg" asp-action="Add">Add new scale model to database</a>
 </p>
-<table class="table">
+<table class="table table-hover table-dark">
     <thead>
         <tr>
             <th>
@@ -42,10 +42,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Details)
             </td>
-            <td>
+            <td class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle btn btn-dark" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Options</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item " asp-action="Edit" asp-route-id="@item.ID">Edit</a> 
+                    <a class="dropdown-item " asp-action="Remove" asp-route-id="@item.ID">Remove</a> 
+                </div>
+            </td>
+            @*<td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Remove" asp-route-id="@item.ID">Usuń</a> |               
-            </td>
+            </td>*@
         </tr>
 }
     </tbody>

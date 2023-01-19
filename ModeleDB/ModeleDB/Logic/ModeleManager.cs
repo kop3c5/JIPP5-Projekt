@@ -22,8 +22,8 @@ namespace ModeleDB.Logic
         {
             using (var context = new ModelContext())
             {
-                ModeleModel filmToDelete = context.Models.FirstOrDefault(x => x.ID == id);
-                context.Models.Remove(filmToDelete);
+                ModeleModel modelToDelete = context.Models.FirstOrDefault(x => x.ID == id);
+                context.Models.Remove(modelToDelete);
                 context.SaveChanges();
             }
             return this;
